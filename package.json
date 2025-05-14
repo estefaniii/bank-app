@@ -1,0 +1,17 @@
+{
+  "name": "03-pet-posts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsnd --respawn src/app.ts"
+  },
+  "keywords": [],
+  "author": "Estéfani",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "nodemon": "^2.0.22"
+  }
+}
