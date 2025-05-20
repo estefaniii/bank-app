@@ -1,5 +1,4 @@
-import { PetPost } from '../../../data';
-import { PetPostStatus } from '../enums/pet-post-status.enum';
+import { PetPost, PetPostStatus } from '../../../data';
 
 export class FinderPetPostService {
   // Fixed class name (Port -> Post)
@@ -10,7 +9,7 @@ export class FinderPetPostService {
         hasFound: false,
       },
       order: {
-        createdAt: 'DESC', // Added sorting by creation date
+        created_at: 'DESC', // Added sorting by creation date
       },
     });
   }

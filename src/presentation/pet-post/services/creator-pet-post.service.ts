@@ -1,3 +1,5 @@
+import { PetPost } from "../../../data";
+
 export class CreatorPetPostService {
   async execute(data: any) {
     const petPost = new PetPost();
@@ -9,10 +11,11 @@ export class CreatorPetPostService {
     petPost.image_url = data.image_url.trim();
 
     try {
-     return await petPost.save();
+      return await petPost.save();
 
     } catch (error) {
       throw new Error('Error creating pet post');
-  }
+    }
 
+  }
 }

@@ -1,3 +1,3 @@
-export * from './posgres-database';
-export * from '/posgres/models/user.model';
-export * from './posgres/models/pet-post.model';
+export * from './postgres/postgres-database';
+export * from './postgres/models/user.model';
+export * from './postgres/models/pet-post.model';

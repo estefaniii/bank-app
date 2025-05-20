@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { PetPostController } from './pet-post.controller';
 import { CreatorPetPostService } from './services/creator-pet-post.service';
 import { FinderPetPostService } from './services/finder-pet-post.service';
-import { ApprovePetPostService } from './services/approve-pet-post.service';
+import { ApproverPetPostService } from './services/approve-pet-post.service';
 import { RejectPetPostService } from './services/reject-pet-post.service';
+import { PetPostController } from './controller';
 
 export class PetPostRoutes {
   static get routes(): Router {
@@ -12,7 +12,7 @@ export class PetPostRoutes {
     // Initialize services
     const finderPetPostService = new FinderPetPostService();
     const creatorPetPostService = new CreatorPetPostService();
-    const approvePetPostService = new ApprovePetPostService(
+    const approvePetPostService = new ApproverPetPostService(
       finderPetPostService,
     );
     const rejectPetPostService = new RejectPetPostService(finderPetPostService);

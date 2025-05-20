@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { UserRoutes } from './user/routes';
+import { PetPostRoutes } from './pet-post/router';
 
 export class AppRoutes {
   static get routes() {

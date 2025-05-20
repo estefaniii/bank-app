@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { PostgresDatabase } from './data';
 import { envs } from './config/env';
-import { Server } from './server';
-import { AppRoutes } from './routes';
+import { Server } from './presentation/server';
+import { AppRoutes } from './presentation/routes';
 
 async function main() {
   try {
@@ -26,7 +26,7 @@ async function main() {
 
     await server.start();
     console.log(`🚀 Server running on port ${envs.PORT}`);
-    
+
   } catch (error) {
     console.error('❌ Application failed to start:', error);
     process.exit(1);
@@ -35,10 +35,3 @@ async function main() {
 
 // Start the application
 main();
-
-
-@Column('timestamp', {
-  default: () => 'CURRENT_TIMESTAMP', // Sets default to current timestamp
-  nullable: false // Makes the column required
-})
-created_at: Date; // Or updated_at if you prefer

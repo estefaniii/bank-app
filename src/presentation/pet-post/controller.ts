@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 import { CreatorPetPostService } from './services/creator-pet-post.service';
 import { FinderPetPostService } from './services/finder-pet-post.service';
-import { ApprovePetPostService } from './services/approve-pet-post.service';
 import { RejectPetPostService } from './services/reject-pet-post.service';
+import { ApproverPetPostService } from './services/approve-pet-post.service';
 
 export class PetPostController {
   constructor(
     private readonly creatorPetPostService: CreatorPetPostService,
     private readonly finderPetPostService: FinderPetPostService,
-    private readonly approvePetPostService: ApprovePetPostService,
+    private readonly approvePetPostService: ApproverPetPostService,
     private readonly rejectPetPostService: RejectPetPostService,
-  ) {}
+  ) { }
 
   create = (req: Request, res: Response) => {
     this.creatorPetPostService
