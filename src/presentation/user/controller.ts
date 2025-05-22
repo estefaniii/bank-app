@@ -1,21 +1,19 @@
 import { Request, Response } from 'express';
 import { LoginUserService } from './services/login-user.service';
 import { FinderUserService } from './services/finder-user.service';
-import { CreatorPetPostService } from '../pet-post/services/creator-pet-post.service';
+import { CreatorUserServise } from '../user/services/creator-user.service';
 
 export class UserController {
   constructor(
-    private readonly creatorUserService: CreatorPetPostService,
+    private readonly creatorUserService: CreatorUserServise,
     private readonly loginUserService: LoginUserService,
     private readonly finderUserService: FinderUserService,
-  ) { }
+  ) {}
 
   register = (req: Request, res: Response) => {
     this.creatorUserService
       .execute(req.body)
-      .then((user) => {
-        res.status(201).json(user);
-      })
+      .then((data) => res.status(201).json(data))
       .catch((error) => {
         res.status(500).json({ message: 'Internal server error' });
       });

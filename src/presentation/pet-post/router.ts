@@ -29,7 +29,7 @@ export class PetPostRoutes {
     router.post('/', controller.create);
     router.get('/', controller.findAll);
     router.get('/:id', controller.findOne);
-    router.patch('/:id/approve', controller.approve); // Changed from GET to PATCH for semantic correctness
+    router.patch('/:id/approve', controller.approve);
     router.patch('/:id/reject', controller.reject);
 
     return router;

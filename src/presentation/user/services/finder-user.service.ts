@@ -1,14 +1,14 @@
-import { User } from "../../../data";
+import { User } from '../../../data';
 
 export class FinderUserService {
-
   async executeByFindAll() {
     const users = await User.find({
       select: ['id', 'name', 'email', 'role'],
       where: {
         status: true,
-      }
+      },
     });
+    return users;
   }
 
   async executeByFindOne(id: string) {
@@ -16,7 +16,7 @@ export class FinderUserService {
       where: {
         status: true,
         id,
-      }
+      },
     });
 
     if (!user) {
