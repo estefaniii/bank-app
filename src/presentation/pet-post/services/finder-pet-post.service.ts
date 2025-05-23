@@ -1,15 +1,14 @@
 import { PetPost, PetPostStatus } from '../../../data';
 
 export class FinderPetPostService {
-  // Fixed class name (Port -> Post)
   async executeByFindAll() {
     return await PetPost.find({
       where: {
-        status: PetPostStatus.APPROVED,
-        hasFound: false,
+        //status: PetPostStatus.APPROVED,
+        //hasFound: false,
       },
       order: {
-        created_at: 'DESC', // Added sorting by creation date
+        created_at: 'DESC',
       },
     });
   }
@@ -18,9 +17,9 @@ export class FinderPetPostService {
     const petPost = await PetPost.findOne({
       where: {
         id: id,
-        status: PetPostStatus.APPROVED, // Added status filter for consistency
+        //status: PetPostStatus.APPROVED,
       },
-      relations: ['owner'], // Example of eager loading relations
+      //relations: ['owner'],
     });
 
     if (!petPost) {

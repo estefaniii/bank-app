@@ -20,9 +20,6 @@ export class Server {
     this.app.use(express.urlencoded({ extended: true }));
 
     this.app.use(this.routes);
-    // this.app.all('/*', (req: Request, res: Response) => {
-    //   res.status(404).json({ message: 'not found' });
-    // });
 
     this.app.listen(this.port, () => {
       console.log(`Server is running on port ${this.port}`);

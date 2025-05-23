@@ -7,6 +7,7 @@ export class CreatorUserServise {
     user.name = data.name.trim().toLowerCase();
     user.email = data.email.trim().toLowerCase();
     user.password = data.password.trim();
+    user.status = true;
     try {
       await user.save();
       return user;

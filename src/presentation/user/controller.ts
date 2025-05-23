@@ -44,6 +44,7 @@ export class UserController {
       .executeByFindOne(id)
       .then((data) => res.status(200).json(data))
       .catch((error) => {
+        console.log('ERROR en findOne - Mensaje:', error.message);
         res.status(500).json({ message: 'Internal server error' });
       });
   };

@@ -5,7 +5,7 @@ export class FinderUserService {
     const users = await User.find({
       select: ['id', 'name', 'email', 'role'],
       where: {
-        status: true,
+        status: false,
       },
     });
     return users;
@@ -14,13 +14,13 @@ export class FinderUserService {
   async executeByFindOne(id: string) {
     const user = await User.findOne({
       where: {
-        status: true,
+        status: false,
         id,
       },
     });
 
     if (!user) {
-      throw new Error('User not found');
+      return 'User not found';
     }
     return user;
   }

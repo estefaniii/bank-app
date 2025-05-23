@@ -17,6 +17,12 @@ export class PetPost extends BaseEntity {
   })
   petName: string;
 
+  @Column('varchar', {
+    length: 100,
+    nullable: true,
+  })
+  owner: string;
+
   @Column('text', {
     nullable: false,
   })
