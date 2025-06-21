@@ -14,15 +14,29 @@ export class TransactionService {
     description?: string,
   ) {
     if (amount <= 0) throw new Error('Amount must be positive');
+
     const sender = await userRepository.findOne({ where: { id: senderId } });
     if (!sender) throw new Error('Sender not found');
-    if (sender.balance < amount) throw new Error('Insufficient funds');
+
+    console.log('Transaction attempt:');
+    console.log('- Sender ID:', senderId);
+    console.log('- Sender balance:', sender.balance);
+    console.log('- Requested amount:', amount);
+    console.log('- Receiver account:', receiverAccountNumber);
+
+    if (sender.balance < amount) {
+      throw new Error(
+        `Insufficient funds. Current balance: $${sender.balance}, Required: $${amount}`,
+      );
+    }
+
     const receiver = await userRepository.findOne({
       where: { accountNumber: receiverAccountNumber },
     });
     if (!receiver) throw new Error('Receiver not found');
     if (sender.id === receiver.id)
       throw new Error('Cannot transfer to yourself');
+
     await AppDataSource.manager.transaction(
       async (transactionalEntityManager: EntityManager) => {
         sender.balance = parseFloat((sender.balance - amount).toFixed(2));
@@ -38,6 +52,7 @@ export class TransactionService {
         await transactionalEntityManager.save(transaction);
       },
     );
+
     const transaction = await transactionRepository.findOne({
       where: { sender: { id: senderId } },
       order: { transactionDate: 'DESC' },

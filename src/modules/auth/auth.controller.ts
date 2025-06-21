@@ -6,7 +6,25 @@ export class AuthController {
 
   async register(req: Request, res: Response) {
     try {
+      console.log('Request body:', req.body);
+      console.log('Request headers:', req.headers);
+
+      if (!req.body) {
+        return res.status(400).json({
+          message:
+            'Request body is missing. Please send JSON data with Content-Type: application/json',
+        });
+      }
+
       const { name, email, password } = req.body;
+
+      if (!name || !email || !password) {
+        return res.status(400).json({
+          message:
+            'Missing required fields: name, email, and password are required',
+        });
+      }
+
       const result = await this.authService.register({ name, email, password });
       res.status(201).json(result);
     } catch (error: any) {

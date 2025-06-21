@@ -11,12 +11,7 @@ export class TransactionRoutes {
     router.use(authenticate as any);
     router.post('/', controller.create.bind(controller) as any);
     router.get('/', controller.getUserTransactions.bind(controller) as any);
-    router.get(
-      '/:id',
-      controller.getTransactionById.bind(
-        controller,
-      ) as import('express').RequestHandler,
-    );
+    router.get('/:id', controller.getTransactionById.bind(controller) as any);
 
     return router;
   }

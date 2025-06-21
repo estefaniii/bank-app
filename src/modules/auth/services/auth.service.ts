@@ -59,13 +59,39 @@ export class AuthService {
   async login(loginDto: LoginUserDto) {
     const { email, password } = loginDto;
     const user = await userRepository.findOne({ where: { email } });
+
+    console.log('Login attempt for email:', email);
+    console.log('User found:', user ? 'Yes' : 'No');
+    if (user) {
+      console.log('User password exists:', !!user.password);
+    }
+
     if (!user) {
       throw new Error('Invalid credentials');
     }
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new Error('Invalid credentials');
+
+    // If user has no password, set a default one and allow login
+    if (!user.password) {
+      console.log('User has no password, setting default password');
+      const defaultPassword = 'DefaultPass123!';
+      const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+      user.password = hashedPassword;
+      await userRepository.save(user);
+
+      // Check if the provided password matches the default
+      const isDefaultPassword = await bcrypt.compare(password, hashedPassword);
+      if (!isDefaultPassword) {
+        throw new Error(
+          'Account requires password reset. Please use the default password: DefaultPass123!',
+        );
+      }
+    } else {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        throw new Error('Invalid credentials');
+      }
     }
+
     const token = await JwtAdapter.generateToken(
       {
         id: user.id,
@@ -74,6 +100,7 @@ export class AuthService {
       },
       envs.JWT_EXPIRE_IN,
     );
+
     return {
       user: {
         id: user.id,
@@ -84,6 +111,9 @@ export class AuthService {
         role: user.role,
       },
       token,
+      message: !user.password
+        ? 'Please change your password after login'
+        : undefined,
     };
   }
 }

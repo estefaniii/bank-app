@@ -28,12 +28,7 @@ export class UserRoutes {
     );
     router.use(checkRole([UserRole.ADMIN]) as any);
     router.get('/', userController.getAllUsers.bind(userController));
-    router.get(
-      '/:id',
-      userController.getUserById.bind(
-        userController,
-      ) as import('express').RequestHandler,
-    );
+    router.get('/:id', userController.getUserById.bind(userController) as any);
     router.put('/:id', userController.updateUser.bind(userController));
     router.delete('/:id', userController.deleteUser.bind(userController));
 
